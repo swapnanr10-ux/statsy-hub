@@ -98,10 +98,100 @@ const Stats = () => {
                 <Progress value={15} className="mt-2" />
               </CardContent>
             </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Buffer Pool Hit Rate</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">98.7%</div>
+                <p className="text-xs text-success">Excellent performance</p>
+                <Progress value={98} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Index Usage</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">87%</div>
+                <p className="text-xs text-muted-foreground">13% full table scans</p>
+                <Progress value={87} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Deadlocks</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">2</div>
+                <p className="text-xs text-success">Last 24 hours</p>
+                <Progress value={5} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Slow Log Entries</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">45</div>
+                <p className="text-xs text-warning">Queries &gt; 10s</p>
+                <Progress value={30} className="mt-2" />
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
 
         <TabsContent value="storage" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-4 mb-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Total Storage</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">124.8GB</div>
+                <p className="text-xs text-muted-foreground">78% of allocated</p>
+                <Progress value={78} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Index Size</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">23.4GB</div>
+                <p className="text-xs text-muted-foreground">18.7% of total</p>
+                <Progress value={19} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Log Files</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">8.9GB</div>
+                <p className="text-xs text-warning">Growing rapidly</p>
+                <Progress value={65} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Fragmentation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">12%</div>
+                <p className="text-xs text-muted-foreground">Within normal range</p>
+                <Progress value={12} className="mt-2" />
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
@@ -172,6 +262,52 @@ const Stats = () => {
         </TabsContent>
 
         <TabsContent value="connections" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-4 mb-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Active Connections</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">167</div>
+                <p className="text-xs text-muted-foreground">83.5% of max</p>
+                <Progress value={83} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Connection Pool</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">95%</div>
+                <p className="text-xs text-warning">Near capacity</p>
+                <Progress value={95} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Avg Session Time</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">14.2min</div>
+                <p className="text-xs text-muted-foreground">+2min from yesterday</p>
+                <Progress value={60} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Failed Connections</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">12</div>
+                <p className="text-xs text-muted-foreground">Last 24 hours</p>
+                <Progress value={5} className="mt-2" />
+              </CardContent>
+            </Card>
+          </div>
+
           <Card>
             <CardHeader>
               <CardTitle>Connection Usage Over Time</CardTitle>
@@ -197,40 +333,116 @@ const Stats = () => {
         </TabsContent>
 
         <TabsContent value="queries" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Query Statistics</CardTitle>
-              <CardDescription>
-                Breakdown of query types and performance metrics
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Query Type</TableHead>
-                    <TableHead>Count (24h)</TableHead>
-                    <TableHead>Avg Time</TableHead>
-                    <TableHead>Performance</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {queryStatsData.map((stat) => (
-                    <TableRow key={stat.type}>
-                      <TableCell className="font-medium">{stat.type}</TableCell>
-                      <TableCell>{stat.count.toLocaleString()}</TableCell>
-                      <TableCell>{stat.avg_time}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="text-success">
-                          Optimal
-                        </Badge>
-                      </TableCell>
+          <div className="grid gap-4 md:grid-cols-4 mb-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Total Queries</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">2.3M</div>
+                <p className="text-xs text-muted-foreground">Last 24 hours</p>
+                <Progress value={78} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Avg Query Time</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">14ms</div>
+                <p className="text-xs text-success">-2ms improvement</p>
+                <Progress value={85} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Complex Queries</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">847</div>
+                <p className="text-xs text-muted-foreground">With JOINs &gt; 3 tables</p>
+                <Progress value={25} className="mt-2" />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">Cached Queries</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">89%</div>
+                <p className="text-xs text-success">High cache efficiency</p>
+                <Progress value={89} className="mt-2" />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Query Statistics</CardTitle>
+                <CardDescription>
+                  Breakdown of query types and performance metrics
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Query Type</TableHead>
+                      <TableHead>Count (24h)</TableHead>
+                      <TableHead>Avg Time</TableHead>
+                      <TableHead>Performance</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+                  </TableHeader>
+                  <TableBody>
+                    {queryStatsData.map((stat) => (
+                      <TableRow key={stat.type}>
+                        <TableCell className="font-medium">{stat.type}</TableCell>
+                        <TableCell>{stat.count.toLocaleString()}</TableCell>
+                        <TableCell>{stat.avg_time}</TableCell>
+                        <TableCell>
+                          <Badge variant="outline" className="text-success">
+                            Optimal
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Top Slow Queries</CardTitle>
+                <CardDescription>
+                  Queries requiring optimization attention
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="p-3 border rounded">
+                    <div className="font-medium text-sm">SELECT * FROM orders WHERE...</div>
+                    <div className="text-xs text-muted-foreground">Avg: 2.3s | Executions: 45</div>
+                    <Progress value={90} className="mt-2" />
+                  </div>
+                  <div className="p-3 border rounded">
+                    <div className="font-medium text-sm">UPDATE users SET status...</div>
+                    <div className="text-xs text-muted-foreground">Avg: 1.8s | Executions: 23</div>
+                    <Progress value={75} className="mt-2" />
+                  </div>
+                  <div className="p-3 border rounded">
+                    <div className="font-medium text-sm">SELECT COUNT(*) FROM logs...</div>
+                    <div className="text-xs text-muted-foreground">Avg: 1.2s | Executions: 67</div>
+                    <Progress value={60} className="mt-2" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

@@ -32,6 +32,42 @@ const activeAlerts = [
     timestamp: '12 minutes ago',
     source: 'Connection Monitor',
     action: 'Check connections'
+  },
+  {
+    id: '4',
+    level: 'critical',
+    title: 'Disk Space Low',
+    description: 'Database storage is 95% full',
+    timestamp: '8 minutes ago',
+    source: 'Storage Monitor',
+    action: 'Add storage'
+  },
+  {
+    id: '5',
+    level: 'warning',
+    title: 'Memory Threshold Exceeded',
+    description: 'Memory usage above 85% for 10 minutes',
+    timestamp: '15 minutes ago',
+    source: 'Memory Monitor',
+    action: 'Check processes'
+  },
+  {
+    id: '6',
+    level: 'critical',
+    title: 'Replication Lag High',
+    description: 'Slave is 45 seconds behind master',
+    timestamp: '3 minutes ago',
+    source: 'Replication Monitor',
+    action: 'Check network'
+  },
+  {
+    id: '7',
+    level: 'warning',
+    title: 'Index Fragmentation',
+    description: 'Table orders has 78% fragmentation',
+    timestamp: '1 hour ago',
+    source: 'Index Monitor',
+    action: 'Rebuild index'
   }
 ]
 
@@ -307,6 +343,38 @@ const Alerts = () => {
                     <div className="flex items-center gap-2">
                       <span className="text-sm">Warning: 90%</span>
                       <span className="text-sm">Critical: 98%</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Disk Space Threshold</h4>
+                    <p className="text-sm text-muted-foreground">Alert when storage space is low</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">Warning: 85%</span>
+                      <span className="text-sm">Critical: 95%</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Replication Lag</h4>
+                    <p className="text-sm text-muted-foreground">Alert when replication falls behind</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">Warning: 30s</span>
+                      <span className="text-sm">Critical: 60s</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Failed Login Attempts</h4>
+                    <p className="text-sm text-muted-foreground">Alert on suspicious login activity</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">Warning: 5 attempts</span>
+                      <span className="text-sm">Critical: 10 attempts</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-medium">Backup Status</h4>
+                    <p className="text-sm text-muted-foreground">Alert when backups fail or are delayed</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">Warning: 25h overdue</span>
+                      <span className="text-sm">Critical: 48h overdue</span>
                     </div>
                   </div>
                 </div>

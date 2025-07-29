@@ -202,7 +202,86 @@ const Roles = () => {
           <TabsTrigger value="audit">Access Audit</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="users">
+        <TabsContent value="users" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <UserPlus className="h-5 w-5" />
+                Add New User
+              </CardTitle>
+              <CardDescription>
+                Create a new database user with specified privileges
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-4">
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium">Username</label>
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="Enter username" />
+                  </div>
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium">Email</label>
+                    <input className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm" placeholder="user@company.com" />
+                  </div>
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium">Host</label>
+                    <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                      <option>localhost</option>
+                      <option>%</option>
+                      <option>192.168.1.%</option>
+                      <option>10.0.0.%</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="grid gap-2">
+                    <label className="text-sm font-medium">Role</label>
+                    <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                      <option>Database Administrator</option>
+                      <option>Developer</option>
+                      <option>Analyst</option>
+                      <option>Backup Operator</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Privileges</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Read Access</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Write Access</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Create Tables</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Drop Tables</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Execute Procedures</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input type="checkbox" className="rounded" />
+                        <span className="text-sm">Grant Privileges</span>
+                      </label>
+                    </div>
+                  </div>
+                  <Button className="w-full">
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Create User
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

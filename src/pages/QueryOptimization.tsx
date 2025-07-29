@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
-import { Search, Zap, Clock, TrendingUp, AlertCircle } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
+import { Search, Zap, Clock, TrendingUp, AlertCircle, Play, Code } from "lucide-react"
 
 const slowQueries = [
   {
@@ -162,6 +163,7 @@ const QueryOptimization = () => {
           <TabsTrigger value="slow-queries">Slow Queries</TabsTrigger>
           <TabsTrigger value="indexes">Index Suggestions</TabsTrigger>
           <TabsTrigger value="patterns">Query Patterns</TabsTrigger>
+          <TabsTrigger value="optimizer">Query Optimizer</TabsTrigger>
           <TabsTrigger value="analysis">Performance Analysis</TabsTrigger>
         </TabsList>
 
@@ -307,6 +309,83 @@ const QueryOptimization = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="optimizer">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Code className="h-5 w-5" />
+                Query Optimizer
+              </CardTitle>
+              <CardDescription>
+                Paste your SQL query to get optimization suggestions and explain plan
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">SQL Query</label>
+                <Textarea 
+                  placeholder="Paste your SQL query here..."
+                  className="min-h-[150px] font-mono text-sm"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button>
+                  <Play className="w-4 h-4 mr-2" />
+                  Analyze Query
+                </Button>
+                <Button variant="outline">
+                  <Search className="w-4 h-4 mr-2" />
+                  Explain Plan
+                </Button>
+                <Button variant="outline">
+                  Clear
+                </Button>
+              </div>
+              
+              <div className="mt-6 space-y-4">
+                <div className="border rounded-lg p-4">
+                  <h4 className="font-medium mb-2">Query Analysis Results</h4>
+                  <div className="text-sm text-muted-foreground">
+                    Paste a query above to see optimization suggestions, execution plan, and performance metrics.
+                  </div>
+                </div>
+                
+                <div className="grid gap-4 md:grid-cols-3">
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">Estimated Execution Time</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-lg font-bold">--</div>
+                      <p className="text-xs text-muted-foreground">Run analysis first</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">Rows Examined</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-lg font-bold">--</div>
+                      <p className="text-xs text-muted-foreground">Run analysis first</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">Optimization Score</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-lg font-bold">--</div>
+                      <p className="text-xs text-muted-foreground">Run analysis first</p>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             </CardContent>
           </Card>

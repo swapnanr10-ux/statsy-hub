@@ -1,8 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
-import { Cpu, HardDrive, Activity, Users, AlertCircle, CheckCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
+import { Cpu, HardDrive, Activity, Users, AlertCircle, CheckCircle, Info, TrendingUp, BarChart3 } from "lucide-react"
 
 // Mock data for charts
 const cpuData = [
@@ -28,6 +29,29 @@ const eventsData = [
   { event: 'Queries', count: 8934 },
   { event: 'Errors', count: 23 },
   { event: 'Warnings', count: 156 },
+]
+
+const cpuCoreData = [
+  { core: 'Core 1', usage: 67, temp: 68 },
+  { core: 'Core 2', usage: 72, temp: 71 },
+  { core: 'Core 3', usage: 59, temp: 65 },
+  { core: 'Core 4', usage: 81, temp: 74 },
+]
+
+const memoryDetailData = [
+  { type: 'Buffer Pool', usage: 65, size: '5.2GB' },
+  { type: 'Query Cache', usage: 78, size: '1.2GB' },
+  { type: 'InnoDB Buffer', usage: 82, size: '3.8GB' },
+  { type: 'Temporary Tables', usage: 34, size: '512MB' },
+]
+
+const diskIOData = [
+  { time: '00:00', read: 120, write: 80 },
+  { time: '04:00', read: 90, write: 60 },
+  { time: '08:00', read: 180, write: 140 },
+  { time: '12:00', read: 220, write: 190 },
+  { time: '16:00', read: 200, write: 160 },
+  { time: '20:00', read: 150, write: 110 },
 ]
 
 const Dashboard = () => {
@@ -105,16 +129,22 @@ const Dashboard = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
-          <CardHeader>
-            <CardTitle>CPU Usage Over Time</CardTitle>
-            <CardDescription>
-              24-hour CPU utilization trends
-            </CardDescription>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>CPU Usage Over Time</CardTitle>
+              <CardDescription>
+                24-hour CPU utilization trends
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <Info className="w-4 h-4 mr-2" />
+              Details
+            </Button>
           </CardHeader>
           <CardContent>
-            <div className="h-[300px]">
+            <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={cpuData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -134,11 +164,89 @@ const Dashboard = () => {
         </Card>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Memory Usage</CardTitle>
-            <CardDescription>
-              RAM and swap memory utilization
-            </CardDescription>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>CPU Core Breakdown</CardTitle>
+              <CardDescription>
+                Individual core utilization
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Analyze
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={cpuCoreData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="core" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="usage" fill="hsl(var(--chart-1))" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Disk I/O Performance</CardTitle>
+              <CardDescription>
+                Read/Write operations over time
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Trends
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={diskIOData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <Area 
+                    type="monotone" 
+                    dataKey="read" 
+                    stackId="1"
+                    stroke="hsl(var(--chart-1))" 
+                    fill="hsl(var(--chart-1))" 
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="write" 
+                    stackId="1"
+                    stroke="hsl(var(--chart-2))" 
+                    fill="hsl(var(--chart-2))" 
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Memory Analysis Section */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Memory Usage</CardTitle>
+              <CardDescription>
+                RAM and swap memory utilization
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <Info className="w-4 h-4 mr-2" />
+              Details
+            </Button>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -164,6 +272,34 @@ const Dashboard = () => {
                   />
                 </AreaChart>
               </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Memory Allocation</CardTitle>
+              <CardDescription>
+                Buffer pools and cache utilization
+              </CardDescription>
+            </div>
+            <Button variant="outline" size="sm">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Optimize
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {memoryDetailData.map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>{item.type}</span>
+                    <span>{item.size} ({item.usage}%)</span>
+                  </div>
+                  <Progress value={item.usage} />
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
